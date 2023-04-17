@@ -2,9 +2,8 @@
 import os
 from typing import Dict
 
+from digits_app.src.utility_methods import check_product, check_sum, is_fibonacci
 from sympy import is_perfect, isprime
-
-from src.utility_methods import check_product, check_sum, is_fibonacci
 
 INDEX_STRING_MAP: Dict[int, str] = {
     0: "1st",

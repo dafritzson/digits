@@ -1,11 +1,11 @@
 """Clue generator application for any given number."""
 from typing import Callable, Dict, List, Tuple, Type
 
+import digits_app.src.clues.clue as c
+import digits_app.src.clues.clue_map as cm
 import numpy as np
-import src.clues.clue as c
-import src.clues.clue_map as cm
-from src.constants import CLUES
-from src.utility_methods import num_to_digits
+from digits_app.src.constants import CLUES
+from digits_app.src.utility_methods import num_to_digits
 
 
 # TODO: Can refactor this to use the standardized naming of ClueMap classes

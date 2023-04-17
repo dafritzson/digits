@@ -3,10 +3,10 @@ from itertools import combinations
 from random import randint
 from typing import Any, Callable, Dict, List, Tuple, Type, Union
 
-import src.clues.clue as c
-import src.clues.clue_map as cm
-from src.constants import CLUES
-from src.utility_methods import (
+import digits_app.src.clues.clue as c
+import digits_app.src.clues.clue_map as cm
+from digits_app.src.constants import CLUES
+from digits_app.src.utility_methods import (
     default_map_to_key,
     digits_to_num,
     snake_to_camelcase,

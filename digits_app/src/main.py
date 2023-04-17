@@ -4,9 +4,9 @@ import sys
 from time import sleep
 from typing import Dict
 
-from src.constants import CLUES, DIFFICULTY, INSTRUCTIONS
-from src.database_builder import MapsDatabaseBuilder
-from src.utility_methods import load_map_file
+from digits_app.src.constants import CLUES, DIFFICULTY, INSTRUCTIONS
+from digits_app.src.database_builder import MapsDatabaseBuilder
+from digits_app.src.utility_methods import load_map_file
 
 
 class Digits:
