@@ -85,7 +85,7 @@ def load_map_file(difficulty: str, key: str) -> pickle.OBJ:
         Loaded map file as a pickle object
     """
     path = os.path.join(
-        os.path.dirname(__file__), "src", "maps_db", f"{difficulty}_{key}_maps.pkl"
+        os.path.dirname(__file__), "maps_db", f"{difficulty}_{key}_maps.pkl"
     )
     with open(path, "rb") as file:
         return pickle.load(file)
