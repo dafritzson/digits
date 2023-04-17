@@ -8,7 +8,7 @@ from src.solver import Solver
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "my-secret-key"
-digits_bp = Blueprint("digits_bp", __name__, url_prefix="/digits")
+digits_bp = Blueprint("digits_bp", __name__)
 
 
 digits_obj = Digits()
