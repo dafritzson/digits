@@ -1,10 +1,16 @@
+import os
+import sys
+
+path = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(path)
+
 from flask import Blueprint, Flask, redirect, render_template, request, url_for
 from gevent.pywsgi import WSGIServer
 
-from forms import DigitsForm, GuessForm
-from src.clues.clue_generator import ClueGenerator
-from src.main import Digits
-from src.solver import Solver
+from digits_app.forms import DigitsForm, GuessForm
+from digits_app.src.clues.clue_generator import ClueGenerator
+from digits_app.src.main import Digits
+from digits_app.src.solver import Solver
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "my-secret-key"
@@ -65,6 +71,6 @@ def guess():
 
 app.register_blueprint(digits_bp)
 
-# if __name__ == "__main__":
-#     http_server = WSGIServer(('', 5000), app)
-#     http_server.serve_forever()
+if __name__ == "__main__":
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
