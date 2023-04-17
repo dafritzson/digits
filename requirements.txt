@@ -1,2 +1,5 @@
 numpy
 sympy
+flask
+flask_wtf
+wtforms
