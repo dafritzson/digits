@@ -3,9 +3,14 @@ import os
 import pickle
 from typing import Any, Callable, Dict, List
 
-import src.clues.clue_map as cm
-from src.constants import CLUES, MAPS_DB
-from src.utility_methods import default_map_to_key, num_to_digits, snake_to_camelcase, timed
+import digits_app.src.clues.clue_map as cm
+from digits_app.src.constants import CLUES, MAPS_DB
+from digits_app.src.utility_methods import (
+    default_map_to_key,
+    num_to_digits,
+    snake_to_camelcase,
+    timed,
+)
 
 
 class MapsDatabaseBuilder:
