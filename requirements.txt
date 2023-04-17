@@ -1,5 +1,6 @@
-numpy
-sympy
 flask
 flask_wtf
+gevent
+numpy
+sympy
 wtforms
