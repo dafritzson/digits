@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title class="text-glow">Guess My Number</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-glow">Digits</h1>
+      <div class="instructions">
+        <p class="text-glow">You get to choose how many digits I contain. I'll give you a few clues to help you make your guess. Each clue contains a CAPITALIZED keyword. You may need to consider which clues of the provided keyword were NOT given to you to find the answer.</p>
+        <p class="text-glow">There are three difficulty levels that you can choose. If you don't choose one, I'll choose one at random for you:</p>
+        <ul>
+          <li><strong class="text-glow">Easy</strong>: 
+            <ul>
+              <li class="text-glow">I'll give you more clues than you need.</li>
+              <li class="text-glow">Some clues may be dead giveaways.</li>
+              <li class="text-glow">You only need to consider single-digit numbers when evaluating your clues.</li>
+            </ul>
+          </li>
+          <li><strong class="text-glow">Medium</strong>: 
+            <ul>
+              <li class="text-glow">I'll only give you as many clues as you need.</li>
+              <li class="text-glow">If you are not given clues of a certain keyword, absent clues for that keyword should not be considered.</li>
+              <li class="text-glow">No clues should be dead giveaways.</li>
+              <li class="text-glow">You only need to consider up to double-digit numbers when evaluating clues.</li>
+            </ul>
+          </li>
+          <li><strong class="text-glow">Hard</strong>: 
+            <ul>
+              <li class="text-glow">Same as medium mode, but you will need to consider all sized numbers when evaluating clues.</li>
+              <li class="text-glow">You may need a pencil and/or Google for this one.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <form method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="form-group">
+          {{ form.difficulty.label }} {{ form.difficulty }}
+        </div>
+        <div class="form-group">
+          {{ form.num_digits.label }} {{ form.num_digits }}
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Play</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

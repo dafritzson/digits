@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title class="text-glow">Your Guess</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h2 class="text-glow">Clues</h2>
+    <ol>
+      {% for clue in clues %}
+        <li class="text-glow">{{ clue }}</li>
+      {% endfor %}
+    </ol>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="digit-field">
+            {% for i in range(form.num_digits) %}
+                {{ form['digit_' + (i+1)|string] }}
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <button type="submit" name="submit_guess" class="btn btn-primary">Guess</button>
+            <button type="submit" name="submit_back" class="btn btn-primary">Play Again</button>
+        </div>
+    </form>
+    {% if guess %}
+      <p class="text-glow">You guessed <strong>{{ guess }}</strong>.</p>
+      {% if guess == number %}
+        <p class="text-glow">Congratulations! You guessed the number correctly!</p>
+      {% else %}
+        <p class="text-glow">Sorry, that's not correct. The answer was <strong>{{ number }}</strong>.</p>
+      {% endif %}
+    {% endif %}
+  </body>
+</html>
