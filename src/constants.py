@@ -89,7 +89,7 @@ CLUES = {
 }
 """Clue types and their respective configuration settings"""
 
-MAPS_DB = os.path.join(__package__, "src", "maps_db")
+MAPS_DB = os.path.join(os.path.dirname(__file__), "src", "maps_db")
 """Path to the database of map files"""
 
 INSTRUCTIONS = """
