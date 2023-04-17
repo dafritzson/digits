@@ -89,7 +89,10 @@ CLUES = {
 }
 """Clue types and their respective configuration settings"""
 
-MAPS_DB = os.path.join(os.path.dirname(__file__), "src", "maps_db")
+if os.name == "nt":
+    MAPS_DB = os.path.join(os.path.dirname(__file__), "src", "maps_db")
+else:
+    MAPS_DB = os.path.join("home", "dafrizzy", "digits", "src", "maps_db")
 """Path to the database of map files"""
 
 INSTRUCTIONS = """
