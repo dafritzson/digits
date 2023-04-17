@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # maps files
-src/maps_db/easy_multiples_maps.pkl
+digits_app/src/maps_db/easy_multiples_maps.pkl
