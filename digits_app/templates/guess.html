@@ -23,6 +23,11 @@
         </div>
         <div class="form-group">
             <button type="submit" name="submit_guess" class="btn btn-primary">Guess</button>
+        </div>
+    </form>
+    <form method="POST">
+      {{ form.crsf_token }}
+        <div class="form-group">
             <button type="submit" name="submit_back" class="btn btn-primary">Play Again</button>
         </div>
     </form>

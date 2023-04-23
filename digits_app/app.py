@@ -6,8 +6,9 @@ sys.path.append(path)
 
 from flask import Blueprint, Flask, redirect, render_template, request, session, url_for
 from gevent.pywsgi import WSGIServer
+from wtforms.validators import StopValidation
 
-from digits_app.forms import DigitsForm, GuessForm
+from digits_app.forms import DigitsForm, GuessButtons, GuessForm
 from digits_app.src.clues.clue_generator import ClueGenerator
 from digits_app.src.main import Digits
 from digits_app.src.solver import Solver
@@ -39,6 +40,7 @@ def guess():
     difficulty = session.get("difficulty", "easy")
     answer = session.get("answer", 0)
     guess_form = GuessForm(num_digits, request.form)
+    guess_buttons = GuessButtons()
     clue_gen = ClueGenerator(answer, difficulty)
     solver = Solver(
         clue_gen.digits,
@@ -55,15 +57,14 @@ def guess():
 
     guess = None
     number = answer
-    if guess_form.validate_on_submit():
-        if "submit_guess" in request.form:
-            guess_digits = [
-                str(getattr(guess_form, f"digit_{digit}").data)
-                for digit in range(1, num_digits + 1)
-            ]
-            guess = int("".join(guess_digits))
-        elif "submit_back" in request.form:
-            return redirect(url_for("digits_bp.digits"))
+    if "submit_guess" in request.form:
+        guess_digits = [
+            str(getattr(guess_form, f"digit_{digit}").data)
+            for digit in range(1, num_digits + 1)
+        ]
+        guess = int("".join(guess_digits))
+    if "submit_back" in request.form:
+        return redirect(url_for("digits_bp.digits"))
     return render_template(
         "guess.html",
         form=guess_form,
