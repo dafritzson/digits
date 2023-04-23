@@ -28,7 +28,8 @@
     <form method="POST">
       {{ form.crsf_token }}
         <div class="form-group">
-            <button type="submit" name="submit_back" class="btn btn-primary">Play Again</button>
+            {{ buttons.submit_play_again(class="btn btn-primary") }}
+            {{ buttons.submit_reveal(class="btn btn-primary") }}
         </div>
     </form>
     {% if guess %}

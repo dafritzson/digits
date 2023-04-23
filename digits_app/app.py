@@ -6,7 +6,7 @@ sys.path.append(path)
 
 from flask import Blueprint, Flask, redirect, render_template, request, session, url_for
 from gevent.pywsgi import WSGIServer
-from wtforms.validators import StopValidation
+from wtforms import IntegerField
 
 from digits_app.forms import DigitsForm, GuessButtons, GuessForm
 from digits_app.src.clues.clue_generator import ClueGenerator
@@ -63,7 +63,11 @@ def guess():
             for digit in range(1, num_digits + 1)
         ]
         guess = int("".join(guess_digits))
-    if "submit_back" in request.form:
+    elif "submit_reveal" in request.form:
+        for i in range(num_digits):
+            digit_field: IntegerField = getattr(guess_form, f"digit_{i+1}")
+            digit_field.process_data([int(str(answer)[i])])
+    if "submit_play_again" in request.form:
         return redirect(url_for("digits_bp.digits"))
     return render_template(
         "guess.html",
@@ -71,6 +75,7 @@ def guess():
         clues=str_clues,
         guess=guess,
         number=number,
+        buttons=guess_buttons,
     )
 
 
