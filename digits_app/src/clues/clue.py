@@ -2,8 +2,8 @@
 from abc import abstractmethod
 from typing import List
 
-from constants import INDEX_STRING_MAP
-from utility_methods import bold
+from digits_app.src.constants import INDEX_STRING_MAP
+from digits_app.src.utility_methods import bold
 
 
 class Clue:

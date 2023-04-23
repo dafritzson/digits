@@ -3,10 +3,15 @@ from itertools import combinations
 from random import randint
 from typing import Any, Callable, Dict, List, Tuple, Type, Union
 
-import clues.clue as c
-import clues.clue_map as cm
-from constants import CLUES
-from utility_methods import default_map_to_key, digits_to_num, snake_to_camelcase, timed
+import digits_app.src.clues.clue as c
+import digits_app.src.clues.clue_map as cm
+from digits_app.src.constants import CLUES
+from digits_app.src.utility_methods import (
+    default_map_to_key,
+    digits_to_num,
+    snake_to_camelcase,
+    timed,
+)
 
 
 class Solver:
