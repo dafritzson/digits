@@ -29,31 +29,38 @@ def digits():
     if form.validate_on_submit():
         session["difficulty"] = form.difficulty.data
         session["num_digits"] = form.num_digits.data
-        session["answer"] = digits_obj.generate_answer(session["num_digits"])
-        return redirect(url_for("digits_bp.guess"))
+        solver_attempts = 3
+
+        # Try to generate a solvable number up to 3 times before erroring.
+        for _ in range(solver_attempts):
+            session["answer"] = digits_obj.generate_answer(session["num_digits"])
+            clue_gen = ClueGenerator(session["answer"], session["difficulty"])
+            solver = Solver(
+                clue_gen.digits,
+                clue_gen.num_maps,
+                clue_gen.clues,
+                session["difficulty"],
+                digits_obj.map_files,
+            )
+            if solver.final_clues is not None:
+                clue_dict = {
+                    clue_type: [str(clue) for clue in _clues]
+                    for clue_type, _clues in solver.final_clues.items()
+                }
+                session["clues"] = clue_dict
+                break
+        if session.get("clues"):
+            return redirect(url_for("digits_bp.guess"))
     return render_template("digits.html", form=form)
 
 
 @digits_bp.route("/guess", methods=["GET", "POST"])
 def guess():
-    num_digits = session.get("num_digits", 5)
-    difficulty = session.get("difficulty", "easy")
-    answer = session.get("answer", 0)
+    num_digits = session.get("num_digits")
+    clues = session.get("clues")
+    answer = session.get("answer")
     guess_form = GuessForm(num_digits, request.form)
     guess_buttons = GuessButtons()
-    clue_gen = ClueGenerator(answer, difficulty)
-    solver = Solver(
-        clue_gen.digits,
-        clue_gen.num_maps,
-        clue_gen.clues,
-        difficulty,
-        digits_obj.map_files,
-    )
-    clues = solver.final_clues
-    str_clues = []
-    for clues in clues.values():
-        for clue in clues:
-            str_clues.append(str(clue))
 
     guess = None
     number = answer
@@ -72,7 +79,7 @@ def guess():
     return render_template(
         "guess.html",
         form=guess_form,
-        clues=str_clues,
+        clues=clues,
         guess=guess,
         number=number,
         buttons=guess_buttons,

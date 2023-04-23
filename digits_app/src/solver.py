@@ -43,6 +43,7 @@ class Solver:
         self.difficulty = difficulty
         self.map_files = map_files
         self.clues = clues
+        self.final_clues = None
         matches = self.get_all_matches()
         matches = self._filter_by_length(matches)
         solved_combos = self.find_overlaps(matches)
@@ -50,6 +51,7 @@ class Solver:
             self.final_clues, self.num_clue_types = self.find_most_fun_clues(
                 solved_combos
             )
+            self.update_final_clue_keys()
         else:
             print("Unable to provide enough clues for you to guess the number.")
             print(f"Answer was {self.answer}. Try another number.")
@@ -61,6 +63,15 @@ class Solver:
             )
         return matches
 
+    def update_final_clue_keys(self):
+        rename_map = {"multiples": "divided"}
+        new_final_clues = {}
+        for clue_type, clues in self.final_clues.items():
+            renamed_type = rename_map.get(clue_type)
+            new_key = renamed_type or clue_type
+            new_final_clues[new_key.upper().replace("_", " ")] = clues
+        self.final_clues = new_final_clues
+            
     @staticmethod
     @timed
     def find_most_fun_clues(

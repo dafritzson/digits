@@ -9,11 +9,18 @@
   </head>
   <body>
     <h2 class="text-glow">Clues</h2>
-    <ol>
-      {% for clue in clues %}
-        <li class="text-glow">{{ clue }}</li>
-      {% endfor %}
-    </ol>
+    <div class="text-glow">
+      <ol style="list-style-type: none;">
+        {% for clue_type, clue_list in clues.items() %}
+            <li>{{ clue_type }}</li>
+            <ol>
+                {% for clue in clue_list %}
+                    <li>{{ clue }}</li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+      <ul>
+    </div>
     <form method="POST">
         {{ form.csrf_token }}
         <div class="digit-field">
