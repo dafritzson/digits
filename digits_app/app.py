@@ -66,7 +66,7 @@ def guess():
     elif "submit_reveal" in request.form:
         for i in range(num_digits):
             digit_field: IntegerField = getattr(guess_form, f"digit_{i+1}")
-            digit_field.process_data([int(str(answer)[i])])
+            digit_field.process_data(int(str(answer)[i]))
     if "submit_play_again" in request.form:
         return redirect(url_for("digits_bp.digits"))
     return render_template(
