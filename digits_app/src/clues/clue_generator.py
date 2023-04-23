@@ -61,17 +61,17 @@ class ClueGenerator:
         multiples_clues = []
 
         multiples_exist = np.any(map)
-        for i, factors in enumerate(map):
-            for j, dig in enumerate(factors):
-                if 0 < dig <= limit or dig == -1:
-                    clue = c.MultipleClue(
-                        self.digits, factor=j, multiple=i, multiplier=dig
-                    )
-                    multiples_clues.append(clue)
-
-        if not multiples_exist:
-            multiples_clues.append("None of my digits are multiples of each other")
-
+        if multiples_exist:
+            for i, factors in enumerate(map):
+                for j, dig in enumerate(factors):
+                    if 0 < dig <= limit or dig == -1:
+                        clue = c.MultipleClue(
+                            self.digits, factor=j, multiple=i, multiplier=dig
+                        )
+                        multiples_clues.append(clue)
+        else:
+            clue = c.MultipleClue(self.digits, limit=limit)
+            multiples_clues.append(clue)
         return multiples_clues, mcm
 
     def generate_total_sum_clues(self) -> Tuple[List[str], Type[cm.ClueMapBase]]:
@@ -80,6 +80,8 @@ class ClueGenerator:
         scm = cm.TotalSumClueMap(self.digits)
         for dig, comp in scm.comparisons.items():
             clues.append(c.TotalSumClue(self.digits, dig, comp))
+        if all(comparison == -1 for comparison in scm.comparisons):
+            clues.append(c.TotalSumClue(self.digits, None, None))
         return clues, scm
 
     def generate_even_clues(self) -> Tuple[List[str], Type[cm.ClueMapBase]]:

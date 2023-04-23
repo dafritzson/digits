@@ -188,7 +188,10 @@ class Solver:
         return matches
 
     def get_simple_matches(
-        self, all_maps: Dict, clue: str, map_key_func: Callable = default_map_to_key
+        self,
+        all_maps: Dict,
+        clue: str,
+        map_key_func: Callable = default_map_to_key,
     ) -> List[int]:
         """Creates a map of numbers that have matching numeric maps with the answer's
         maps for simple clue types.
@@ -283,7 +286,18 @@ class Solver:
     @timed
     def get_even_matches(self, map_file: Dict, clue: str = "even") -> List[int]:
         """Gets matches of numeric maps for even clues"""
-        return self.get_simple_matches(map_file, clue)
+        matches = []
+        cm_name = snake_to_camelcase(clue) + "ClueMap"
+        num_map = self.maps.get(cm_name)
+        matching_maps = {
+            candidate_map: map_file[candidate_map]
+            for candidate_map in map_file
+            if candidate_map.count(1) == num_map.count(1)
+        }
+        num_map = default_map_to_key(num_map)
+        for map in matching_maps:
+            matches.extend(map_file[map])
+        return matches
 
     @timed
     def get_order_matches(self, map_file: Dict, clue: str = "even") -> List[int]:

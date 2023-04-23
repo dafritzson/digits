@@ -70,7 +70,6 @@ class TotalSumClueMap(ClueMapBase):
             if val > self.sum - val:
                 comparisons[i] = "greater than"
                 comp_map.append(1)
-                continue
             elif val == self.sum - val:
                 comparisons[i] = "equal to"
                 comp_map.append(0)

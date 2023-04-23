@@ -37,14 +37,21 @@ class OrderClue(Clue):
 
 
 class TotalSumClue(Clue):
-    def __init__(self, digits: List[str], digit: int, comparison: str) -> None:
+    def __init__(
+        self, digits: List[str], digit: int = None, comparison: str = None
+    ) -> None:
         super().__init__(digits)
-        self.digit = digit
-        self.comparison = comparison
+        self.no_great_digit = True
         self.keyword = bold("total sum")
+        if digit is not None and comparison is not None:
+            self.digit = digit
+            self.comparison = comparison
+            self.no_great_digit = False
 
     def format_for_display(self):
         """Formats the sum clue"""
+        if self.no_great_digit:
+            return "No one of my digits is greater than the TOTAL SUM of the rest of my digits"
         base = "My {} digit is {} the {} of all my other digits"
         s_idx = INDEX_STRING_MAP[self.digit]
         return base.format(s_idx, self.comparison, self.keyword)
@@ -59,19 +66,23 @@ class EvenClue(Clue):
     def format_for_display(self) -> str:
         """Formats the even or odd clue"""
         num_even = str(self.num_even) if self.num_even > 0 else "None"
-        return f"{num_even} of my digits are {self.keyword}"
+        if self.num_even == 1:
+            return f"{self.num_even} of my digits is {self.keyword}"
+        return f"{self.num_even} of my digits are {self.keyword}"
 
 
 class MultipleClue(Clue):
     def __init__(
         self,
         digits: List[str],
-        factor: int,
-        multiple: int,
-        multiplier: int,
+        factor: int = None,
+        multiple: int = None,
+        multiplier: int = None,
+        limit: int = None,
     ) -> None:
         super().__init__(digits)
         self.keyword = bold("divided")
+        self.limit = limit
         self.factor = factor
         self.multiple = multiple
         self.multiplier = multiplier
@@ -90,8 +101,10 @@ class MultipleClue(Clue):
 
     def format_for_display(self):
         """Formats the multiples clue"""
+        if self.limit is not None:  # no multiples case
+            return f"None of my digits {self.keyword} by factors 1-{self.limit} equal another digit"
         if self.multiplier == -1:  # zero divided by zero case
-            base = self.bases[2]
+            base = self.bases[1]
         else:  # different numbers, multiples of each other or same number for both digits, but not zeros
             base = self.bases[0]
 
