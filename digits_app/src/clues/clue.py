@@ -2,8 +2,8 @@
 from abc import abstractmethod
 from typing import List
 
-from digits_app.src.constants import INDEX_STRING_MAP
-from digits_app.src.utility_methods import bold
+from constants import INDEX_STRING_MAP
+from utility_methods import bold
 
 
 class Clue:
@@ -83,12 +83,8 @@ class MultipleClue(Clue):
                 [self.s_idx2, self.keyword, self.multiplier, self.s_idx1],
             ),
             (
-                "My {} digit {} by my {} digit equals 1",
+                "My {} digit {} by any numer equals my {} digit",
                 [self.s_idx1, self.keyword, self.s_idx2],
-            ),
-            (
-                "My {} digit is the same as my {} digit",
-                [self.s_idx1, self.s_idx2],
             ),
         ]
 
@@ -96,23 +92,28 @@ class MultipleClue(Clue):
         """Formats the multiples clue"""
         if self.multiplier == -1:  # zero divided by zero case
             base = self.bases[2]
-        elif self.multiplier == 1:  # same number for both digits, but not zeros
-            base = self.bases[1]
-        else:  # different numbers, multiples of each other
+        else:  # different numbers, multiples of each other or same number for both digits, but not zeros
             base = self.bases[0]
 
         return base[0].format(*base[1])
 
 
 class SpecialPropertiesClue(Clue):
-    def __init__(self, digits: List[str], attribute: str, special_digs: int) -> None:
+    def __init__(
+        self, digits: List[str], attribute: str, special_digs: int = None
+    ) -> None:
         super().__init__(digits)
-        s_digs = str(special_digs)
-        self.first = s_digs[0]
-        self.second = None if len(s_digs) == 1 else s_digs[1]
         self.keyword = bold(attribute)
+        self.empty = True
+        if special_digs is not None:
+            s_digs = str(special_digs)
+            self.first = s_digs[0]
+            self.second = None if len(s_digs) == 1 else s_digs[1]
+            self.empty = False
 
     def format_for_display(self):
+        if self.empty:
+            return f"None of my digits or joining of my digits makes a {self.keyword} number."
         s_idx1 = INDEX_STRING_MAP[int(self.first) - 1]
         s_idx2 = None if not self.second else INDEX_STRING_MAP[int(self.second) - 1]
         if not s_idx2:
@@ -144,4 +145,4 @@ class PartialsClue(Clue):
         s_idx2 = INDEX_STRING_MAP.get(self.f2_idx, None)
         if all([st_idx, s_idx1, s_idx2]):
             return f"My {st_idx} digit is the {self.keyword} of my {s_idx1} and {s_idx2} digits"
-        return f"None of my digits are the {self.keyword} of a combination of my other digits."
+        return f"None of my digits are the {self.keyword} of a combination of two of my other digits."
