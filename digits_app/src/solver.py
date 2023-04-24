@@ -81,10 +81,13 @@ class Solver:
                     limits = clue_type_config[0].get("limits")
                 if limits:
                     difficulty_limit = limits[self.difficulty]["length"]
-                formatted_clue = negative_clue.format(
-                    key=self._format_clue_type(clue_type), limit=difficulty_limit
-                )
-                self.final_clues[clue_type].append(formatted_clue)
+                if not (
+                    self.difficulty == "easy" and clue_type == "multiples"
+                ):  # TODO: Remove conditional once easy maps are loading properly
+                    formatted_clue = negative_clue.format(
+                        key=self._format_clue_type(clue_type), limit=difficulty_limit
+                    )
+                    self.final_clues[clue_type].append(formatted_clue)
 
     def update_final_clue_keys(self) -> None:
         new_final_clues = {}
