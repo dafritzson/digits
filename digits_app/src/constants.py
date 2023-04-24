@@ -89,7 +89,7 @@ CLUES = {
 """Clue types and their respective configuration settings"""
 
 NEGATIVE_CONSTRAINT_CLUES = {
-    "multiples": "No other {key} clues apply. The greatest factor considered is {limit}.",
+    "multiples": "No other {key} clues apply. The greatest divisor considered is {limit}.",
     "prime": "No other {key} clues apply to my digits.",
     "fibonacci": "No other {key} clues apply to my digits.",
     "perfect": "No other {key} clues apply to my digits.",
