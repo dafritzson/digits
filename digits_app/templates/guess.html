@@ -13,13 +13,13 @@
       <ol style="list-style-type: none;">
         {% for clue_type, clue_list in clues.items() %}
             <li>{{ clue_type }}</li>
-            <ol>
+            <ul>
                 {% for clue in clue_list %}
                     <li>{{ clue }}</li>
                 {% endfor %}
-            </ol>
+            </ul>
         {% endfor %}
-      <ul>
+      </ol>
     </div>
     <form method="POST">
         {{ form.csrf_token }}

@@ -5,7 +5,7 @@ from typing import Any, Callable, Dict, List, Tuple, Type, Union
 
 import digits_app.src.clues.clue as c
 import digits_app.src.clues.clue_map as cm
-from digits_app.src.constants import CLUES
+from digits_app.src.constants import CLUES, NEGATIVE_CONSTRAINT_CLUES
 from digits_app.src.utility_methods import (
     default_map_to_key,
     digits_to_num,
@@ -51,6 +51,7 @@ class Solver:
             self.final_clues, self.num_clue_types = self.find_most_fun_clues(
                 solved_combos
             )
+            self.add_negative_constraint_clues()
             self.update_final_clue_keys()
         else:
             print("Unable to provide enough clues for you to guess the number.")
@@ -63,15 +64,34 @@ class Solver:
             )
         return matches
 
-    def update_final_clue_keys(self):
+    def _format_clue_type(self, clue_type: str) -> str:
         rename_map = {"multiples": "divided"}
+        renamed_type = rename_map.get(clue_type)
+        new_key = renamed_type or clue_type
+        return new_key.upper().replace("_", " ")
+
+    def add_negative_constraint_clues(self) -> None:
+        for clue_type in self.final_clues:
+            negative_clue = NEGATIVE_CONSTRAINT_CLUES.get(clue_type)
+            if negative_clue:
+                clue_type_config = CLUES.get(clue_type)
+                limits = None
+                difficulty_limit = None
+                if clue_type_config:
+                    limits = clue_type_config[0].get("limits")
+                if limits:
+                    difficulty_limit = limits[self.difficulty]["length"]
+                formatted_clue = negative_clue.format(
+                    key=self._format_clue_type(clue_type), limit=difficulty_limit
+                )
+                self.final_clues[clue_type].append(formatted_clue)
+
+    def update_final_clue_keys(self) -> None:
         new_final_clues = {}
         for clue_type, clues in self.final_clues.items():
-            renamed_type = rename_map.get(clue_type)
-            new_key = renamed_type or clue_type
-            new_final_clues[new_key.upper().replace("_", " ")] = clues
+            new_final_clues[self._format_clue_type(clue_type)] = clues
         self.final_clues = new_final_clues
-            
+
     @staticmethod
     @timed
     def find_most_fun_clues(
@@ -233,7 +253,9 @@ class Solver:
             )
             return []
         try:
-            matches = all_maps[num_map]
+            matches = all_maps.get(
+                num_map, []
+            )  # TODO: Why does this error only on deployment?
         except KeyError:
             print(f"KeyError for {num_map}. All keys: {list(all_maps.keys())}")
         return matches
