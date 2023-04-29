@@ -6,8 +6,7 @@ body {
   line-height: 1.5;
   margin: 10px;
   padding: 0;
-  background-blend-mode: multiply;
-  text-shadow: 0 0 3px rgb(97, 96, 96), 0 0 5px rgb(104, 103, 103), 0 0 7px rgb(90, 88, 88), 0 0 5px rgba(2, 255, 116, 0.527);
+  text-shadow: 0 0 1px rgb(97, 96, 96), 0 0 3px rgb(104, 103, 103), 0 0 3px rgb(90, 88, 88), 0 0 5px rgba(2, 255, 116, 0.527);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,6 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .container {
+  background: transparent;
   margin: 0 auto;
   max-width: 0 auto;
 }
@@ -150,5 +150,5 @@ select:focus option {
 }
 
 .text-glow {
-  text-shadow: 0 0 3px rgb(97, 96, 96), 0 0 5px rgb(104, 103, 103), 0 0 7px rgb(90, 88, 88), 0 0 5px rgba(2, 255, 116, 0.527);
+  text-shadow: 0 0 1px rgb(97, 96, 96), 0 0 3px rgb(104, 103, 103), 0 0 3px rgb(90, 88, 88), 0 0 5px rgba(2, 255, 116, 0.527);
 }
