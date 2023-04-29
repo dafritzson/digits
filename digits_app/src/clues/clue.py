@@ -86,8 +86,8 @@ class MultipleClue(Clue):
         self.factor = factor
         self.multiple = multiple
         self.multiplier = multiplier
-        self.s_idx1 = INDEX_STRING_MAP[self.factor]
-        self.s_idx2 = INDEX_STRING_MAP[self.multiple]
+        self.s_idx1 = INDEX_STRING_MAP.get(self.factor)
+        self.s_idx2 = INDEX_STRING_MAP.get(self.multiple)
         self.bases = [
             (
                 "My {} digit {} by {} equals my {} digit",

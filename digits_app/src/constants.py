@@ -1,6 +1,7 @@
 """Constant values and settings."""
 import os
-from typing import Dict
+from dataclasses import dataclass
+from typing import Any, Dict, List
 
 from digits_app.src.utility_methods import check_product, check_sum, is_fibonacci
 from sympy import is_perfect, isprime
@@ -52,49 +53,58 @@ DIFFICULTY = {
 """Difficulties and their respective custom responses"""
 
 CLUES = {
-    "multiples": [
-        {
+    "multiples": {
+        "multiples": {
             "limits": {
-                "easy": {"length": 9},
+                "easy": {"length": 4},
                 "medium": {"length": 4},
                 "hard": {"length": 4},
             }
         }
-    ],
-    "total_sum": [{}],
-    "special_properties": [
-        {
+    },
+    "total_sum": {"total_sum": {}},
+    "special_properties": {
+        "prime": {
             "prop_func": isprime,
             "attribute": "prime",
             "limits": {"easy": {"length": 1}, "medium": {"length": 2}, "hard": {}},
         },
-        {
+        "perfect": {
             "prop_func": is_perfect,
             "attribute": "perfect",
             "limits": {"easy": {"length": 1}, "medium": {"length": 2}, "hard": {}},
         },
-        {
+        "fibonacci": {
             "prop_func": is_fibonacci,
             "attribute": "fibonacci",
             "limits": {"easy": {"length": 1}, "medium": {"length": 2}, "hard": {}},
         },
-    ],
-    "even": [{}],
-    "order": [{}],
-    "partials": [
-        {"prop_func": check_product, "attribute": "product"},
-        {"prop_func": check_sum, "attribute": "sum"},
-    ],
+    },
+    "even": {"even": {}},
+    "order": {"order": {}},
+    "partials": {
+        "product": {"prop_func": check_product, "attribute": "product"},
+        "sum": {"prop_func": check_sum, "attribute": "sum"},
+    },
 }
 """Clue types and their respective configuration settings"""
 
+# TODO: Remove this once `CLUES` have a better dataclass structure
+CLUE_TYPE_MAP = {
+    "prime": "special_properties",
+    "perfect": "special_properties",
+    "fibonacci": "special_properties",
+    "product": "partials",
+    "sum": "partials",
+}
+
 NEGATIVE_CONSTRAINT_CLUES = {
-    "multiples": "No other {key} clues apply. The greatest divisor considered is {limit}.",
-    "prime": "No other {key} clues apply to my digits.",
-    "fibonacci": "No other {key} clues apply to my digits.",
-    "perfect": "No other {key} clues apply to my digits.",
-    "product": "No other {key} clues apply to my digits.",
-    "sum": "No other {key} clues apply to my digits.",
+    "multiples": "No other {key} clues apply for the divisors 1 through 4",
+    "prime": "No other {limit_msg}{key} clues apply to my digits",
+    "fibonacci": "No other {limit_msg}{key} clues apply to my digits",
+    "perfect": "No other {limit_msg}{key} clues apply to my digits",
+    "product": "No other 1-digit {key} clues apply to my digits",
+    "sum": "No other 1-digit {key} clues apply to my digits",
 }
 """Explicit clues to be included for the negative constraint."""
 

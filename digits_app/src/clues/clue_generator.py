@@ -35,7 +35,7 @@ class ClueGenerator:
         all_clues = {}
         maps = {}
         for clue, _kwargs in CLUES.items():
-            for kwargs in _kwargs:
+            for kwargs in _kwargs.values():
                 new_clues, clue_map = getattr(self, f"generate_{clue}_clues")(**kwargs)
                 key = kwargs.get("attribute") or clue
                 all_clues[key] = new_clues

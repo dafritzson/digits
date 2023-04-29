@@ -1,11 +1,11 @@
 """Clue solver application for reducing the set of clues needed to solve a number."""
 from itertools import combinations
 from random import randint
-from typing import Any, Callable, Dict, List, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type, Union
 
 import digits_app.src.clues.clue as c
 import digits_app.src.clues.clue_map as cm
-from digits_app.src.constants import CLUES, NEGATIVE_CONSTRAINT_CLUES
+from digits_app.src.constants import CLUE_TYPE_MAP, CLUES, NEGATIVE_CONSTRAINT_CLUES
 from digits_app.src.utility_methods import (
     default_map_to_key,
     digits_to_num,
@@ -73,21 +73,39 @@ class Solver:
     def add_negative_constraint_clues(self) -> None:
         for clue_type in self.final_clues:
             negative_clue = NEGATIVE_CONSTRAINT_CLUES.get(clue_type)
+            limit_msg = None
             if negative_clue:
-                clue_type_config = CLUES.get(clue_type)
-                limits = None
-                difficulty_limit = None
+                parent_clue_type = CLUE_TYPE_MAP.get(clue_type)
+                clue_type_config = (
+                    CLUES[parent_clue_type][clue_type]
+                    if parent_clue_type
+                    else CLUES[clue_type][clue_type]
+                )
                 if clue_type_config:
-                    limits = clue_type_config[0].get("limits")
-                if limits:
-                    difficulty_limit = limits[self.difficulty]["length"]
-                if not (
-                    self.difficulty == "easy" and clue_type == "multiples"
-                ):  # TODO: Remove conditional once easy maps are loading properly
-                    formatted_clue = negative_clue.format(
-                        key=self._format_clue_type(clue_type), limit=difficulty_limit
-                    )
-                    self.final_clues[clue_type].append(formatted_clue)
+                    limit_msg = self._format_limit_msg(clue_type_config)
+                formatted_clue = negative_clue.format(
+                    key=self._format_clue_type(clue_type), limit_msg=limit_msg
+                )
+                self.final_clues[clue_type].append(formatted_clue)
+
+    def _format_limit_msg(
+        self, clue_type_config: List[Dict[str, Any]]
+    ) -> Optional[str]:
+        limits = None
+        difficulty_limit = None
+        limit_msg = ""
+        if clue_type_config:
+            limits: Dict[str, Dict[str, int]] = clue_type_config.get("limits")
+        if limits:
+            difficulty_limit = limits[self.difficulty].get("length", None)
+            if not difficulty_limit:
+                return ""
+            limit_msg = (
+                f"1 or {difficulty_limit} digit "
+                if difficulty_limit > 1
+                else f"1-digit "
+            )
+        return limit_msg
 
     def update_final_clue_keys(self) -> None:
         new_final_clues = {}
@@ -189,7 +207,7 @@ class Solver:
         return solved_combos
 
     def get_all_matches(
-        self, clues: Dict[str, List[Dict[str, Any]]] = CLUES
+        self, clues: Dict[str, Dict[str, Dict[str, Any]]] = CLUES
     ) -> Dict[str, List[int]]:
         """Creates a map of numbers that have matching numeric maps with the answer's
         maps for all clue types.
@@ -203,7 +221,7 @@ class Solver:
         matches = {}
         for clue, _kwargs in clues.items():
             func_name = f"get_{clue}_matches"
-            for kwargs in _kwargs:
+            for kwargs in _kwargs.values():
                 key = kwargs.get("attribute") or clue
                 map_file = self.map_files[self.difficulty][key]
                 try:

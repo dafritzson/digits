@@ -34,19 +34,19 @@ class MapsDatabaseBuilder:
 
     @staticmethod
     def get_maps_paths(
-        clues: Dict[str, List[Dict[str, Any]]], difficulty: str
+        clues: Dict[str, Dict[str, Dict[str, Any]]], difficulty: str
     ) -> Dict[str, str]:
         paths = {}
         for clue, _kwargs in clues.items():
-            for kwargs in _kwargs:
+            for kwargs in _kwargs.values():
                 key = kwargs.get("attribute") or clue
                 paths[key] = os.path.join(MAPS_DB, f"{difficulty}_{key}_maps.pkl")
         return paths
 
-    def store_all_maps(self, clues: Dict[str, List[Dict[str, Any]]]):
+    def store_all_maps(self, clues: Dict[str, Dict[str, Dict[str, Any]]]):
         for clue, _kwargs in clues.items():
             func_name = f"store_{clue}_maps"
-            for kwargs in _kwargs:
+            for kwargs in _kwargs.values():
                 key = kwargs.get("attribute") or clue
                 try:
                     getattr(self, func_name)(path=self.paths[key], clue=clue, **kwargs)
