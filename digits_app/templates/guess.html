@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h2 class="text-glow">Clues</h2>
+    <h3 class="text-glow">Clues</h3>
     <div class="text-glow">
-      <ol style="list-style-type: none; font-size: 4vw; margin-left: 4vw;">
+      <ol style="list-style-type: none; font-size: 4vw; margin-left: 2vw;">
         {% for clue_type, clue_list in clues.items() %}
             <li>{{ clue_type }}</li>
             <ul>
@@ -40,11 +40,11 @@
         </div>
     </form>
     {% if guess %}
-      <p class="text-glow">You guessed <strong>{{ guess }}</strong>.</p>
+      <p class="text-glow" style="font-size: 4vw;">You guessed <strong>{{ guess }}</strong>.</p>
       {% if guess == number %}
-        <p class="text-glow">Congratulations! You guessed the number correctly!</p>
+        <p class="text-glow" style="font-size: 5vw;"><strong>Congratulations! You got it!<strong></p>
       {% else %}
-        <p class="text-glow">Sorry, that's not correct.</p>
+        <p class="text-glow" style="font-size: 4vw;">Sorry, that's not correct.</p>
       {% endif %}
     {% endif %}
   </body>
