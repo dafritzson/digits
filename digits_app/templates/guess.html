@@ -10,7 +10,7 @@
   <body>
     <h2 class="text-glow">Clues</h2>
     <div class="text-glow">
-      <ol style="list-style-type: none;">
+      <ol style="list-style-type: none; font-size: 2vw; margin-left: 10vw;">
         {% for clue_type, clue_list in clues.items() %}
             <li>{{ clue_type }}</li>
             <ul>
@@ -29,14 +29,14 @@
             {% endfor %}
         </div>
         <div class="form-group">
-            <button type="submit" name="submit_guess" class="btn btn-primary">Guess</button>
+            <button type="submit" name="submit_guess" class="btn guess">Guess</button>
         </div>
     </form>
     <form method="POST">
       {{ form.crsf_token }}
         <div class="form-group">
-            {{ buttons.submit_play_again(class="btn btn-primary") }}
-            {{ buttons.submit_reveal(class="btn btn-primary") }}
+            {{ buttons.submit_play_again(class="btn guess") }}
+            {{ buttons.submit_reveal(class="btn guess") }}
         </div>
     </form>
     {% if guess %}
