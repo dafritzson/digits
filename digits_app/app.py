@@ -27,11 +27,6 @@ digits_obj = Digits()
 def digits():
     form = DigitsForm()
     if form.validate_on_submit():
-        print(f"Easy btn data: {form.easy_btn.data}")
-        print(f"Medium btn data: {form.medium_btn.data}")
-        print(f"Hard btn data: {form.hard_btn.data}")
-        print(f"Extra btn data: {request.values.get('extra_btn')}")
-        print(f"request form: {request.form}")
         if form.easy_btn.data:
             session["difficulty"] = "easy"
         elif form.medium_btn.data:
@@ -39,8 +34,14 @@ def digits():
         elif form.hard_btn.data:
             session["difficulty"] = "hard"
 
-        # session["difficulty"] = form.difficulty.data
-        session["num_digits"] = form.num_digits.data
+        if form.three_btn.data:
+            session["num_digits"] = int(form.three_btn.name)
+        elif form.four_btn.data:
+            session["num_digits"] = int(form.four_btn.name)
+        elif form.five_btn.data:
+            session["num_digits"] = int(form.five_btn.name)
+        elif form.six_btn.data:
+            session["num_digits"] = int(form.six_btn.name)
         solver_attempts = 3
 
         # Try to generate a solvable number up to 3 times before erroring.
@@ -63,6 +64,8 @@ def digits():
                 break
         if session.get("clues"):
             return redirect(url_for("digits_bp.guess"))
+    else:
+        print("NOT VALID")
     return render_template(
         "digits.html",
         form=form,

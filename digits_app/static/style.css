@@ -97,7 +97,6 @@ input[type=number]::-webkit-inner-spin-button {
   color: #0f0;
   font-size: 18px;
   font-weight: bold;
-  width: 12ch;
   padding: 10px;
   opacity: 0.8;
   margin-right: 10px;
@@ -107,20 +106,17 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .btn {
-  border: none;
   border-radius: 5px;
   color: #000;
   cursor: pointer;
   margin-right: 10px;
   height: 50px;
+  width: 12ch;
   opacity: 0.8;
   padding: 0;
-  transition: background-color 0.3s ease;
-  text-align: center;
 }
 
 .boolean-button {
-  border: none;
   border-radius: 5px;
   height: 50px;
   color: #000;
@@ -132,6 +128,14 @@ input[type=number]::-webkit-inner-spin-button {
   background-color: rgba(0, 255, 0, 0.5); /* Change the background color when clicked */
   border-color: solid rgba(255, 255, 255, 0.5);
   color: rgba(209, 255, 208); /* Change the text color when clicked */
+}
+
+.boolean-button.difficulty {
+  width: 12ch;
+}
+
+.boolean-button.num-digits {
+  width: 6ch;
 }
 
 .boolean-button:hover,
