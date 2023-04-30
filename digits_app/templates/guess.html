@@ -10,7 +10,7 @@
   <body>
     <h3 class="text-glow">Clues</h3>
     <div class="text-glow">
-      <ol style="list-style-type: none; font-size: 3vw;">
+      <ol style="list-style-type: none; font-size: 2.5vw; margin-left: -1vw;">
         {% for clue_type, clue_list in clues.items() %}
             <li>{{ clue_type }}</li>
             <ul>
@@ -49,11 +49,9 @@
     {% endif %}
     <script>
       const numericInputs = document.querySelectorAll('.digit-field input');
-      console.log(numericInputs)
       numericInputs.forEach((input, index) => {
         input.addEventListener('input', () => {
           if (input.value.length === 1 && index < numericInputs.length - 1) {
-            console.log("length of an input is 1!")
             numericInputs[index + 1].focus();
           }
         });

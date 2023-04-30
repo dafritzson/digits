@@ -31,7 +31,7 @@
         const diff_buttons = document.querySelectorAll('.boolean-button.difficulty');
         console.log(diff_buttons)
         diff_buttons.forEach((button) => {
-          button.addEventListener('click', function() {
+          button.addEventListener('click tap', function() {
             // Remove 'clicked' class from all other buttons
             diff_buttons.forEach((otherButton) => {
               if (otherButton !== button) {
