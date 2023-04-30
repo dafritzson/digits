@@ -10,18 +10,40 @@
   <body>
     <div class="container">
       <h1 class="text-glow" style="padding-bottom: 20px;">Welcome to Digits</h1>
-      <form method="POST" action="">
+      <form method="POST" action="" id="digits-form">
         {{ form.csrf_token }}
         <div class="form-group">
-          {{ form.difficulty.label }} {{ form.difficulty }}
+          {{ form.easy_btn }}
+          {{ form.medium_btn }}
+          {{ form.hard_btn }}
         </div>
         <div class="form-group">
           {{ form.num_digits.label }} {{ form.num_digits }}
+          {{ form.extra_btn }}
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary">Play</button>
+          {{ form.play_btn(class="btn") }}
         </div>
       </form>
+      <script>
+        const buttons = document.querySelectorAll('.boolean-button');
+        buttons.forEach((button) => {
+          button.addEventListener('click', function() {
+            // Remove 'clicked' class from all other buttons
+            buttons.forEach((otherButton) => {
+              if (otherButton !== button) {
+                otherButton.classList.remove('clicked');
+                otherButton.previousElementSibling.value = 0;
+                otherButton.value = 0;
+              }
+            });
+            // Toggle 'clicked' class for the clicked button
+            this.classList.toggle('clicked');
+            this.previousElementSibling.value = 1;
+            this.value = 1;
+          });
+        });
+      </script>
     </div>
   </body>
 </html>

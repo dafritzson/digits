@@ -27,7 +27,19 @@ digits_obj = Digits()
 def digits():
     form = DigitsForm()
     if form.validate_on_submit():
-        session["difficulty"] = form.difficulty.data
+        print(f"Easy btn data: {form.easy_btn.data}")
+        print(f"Medium btn data: {form.medium_btn.data}")
+        print(f"Hard btn data: {form.hard_btn.data}")
+        print(f"Extra btn data: {request.values.get('extra_btn')}")
+        print(f"request form: {request.form}")
+        if form.easy_btn.data:
+            session["difficulty"] = "easy"
+        elif form.medium_btn.data:
+            session["difficulty"] = "medium"
+        elif form.hard_btn.data:
+            session["difficulty"] = "hard"
+
+        # session["difficulty"] = form.difficulty.data
         session["num_digits"] = form.num_digits.data
         solver_attempts = 3
 
@@ -51,7 +63,10 @@ def digits():
                 break
         if session.get("clues"):
             return redirect(url_for("digits_bp.guess"))
-    return render_template("digits.html", form=form)
+    return render_template(
+        "digits.html",
+        form=form,
+    )
 
 
 @digits_bp.route("/guess", methods=["GET", "POST"])
