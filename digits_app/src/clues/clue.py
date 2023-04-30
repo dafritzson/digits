@@ -33,7 +33,7 @@ class OrderClue(Clue):
         elif self.descending:
             return base.format("descending", self.keyword)
         else:
-            return f"My digits are in neither ascending nor descending {self.keyword}"
+            return f"My digits are not in ascending or descending {self.keyword}"
 
 
 class TotalSumClue(Clue):
