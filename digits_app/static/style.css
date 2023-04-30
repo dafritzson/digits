@@ -11,8 +11,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  margin: 0;
+  margin-left: 10px;
   padding: 0;
+  width: 500px;
+  text-align: center;
 }
 
 .container {
@@ -26,12 +28,13 @@ h1, h2, h3, h4, h5, h6 {
   color: #000;
   font-size: 36px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 20px;
   text-align: center;
 }
 
 .form-group {
+  margin-left: 10px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
@@ -67,6 +70,11 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(0, 255, 0, 0.3);
 }
 
+.digit-field {
+  margin-left: 10px;
+  width: 500px;
+}
+
 .digit-field input[type="number"]{
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
@@ -87,7 +95,6 @@ input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.form-group input[type="text"],
 .form-group input[type="submit"],
 .form-group button {
   background-color: rgba(255, 255, 255, 0.2);
@@ -110,15 +117,20 @@ input[type=number]::-webkit-inner-spin-button {
   color: #000;
   cursor: pointer;
   margin-right: 10px;
-  height: 50px;
-  width: 12ch;
+  height: 70px;
+  width: 150px;
   opacity: 0.8;
   padding: 0;
 }
 
+.btn.play {
+  height: 70px;
+  width: 500px;
+}
+
 .boolean-button {
   border-radius: 5px;
-  height: 50px;
+  height: 70px;
   color: #000;
   cursor: pointer;
   opacity: 0.8;
@@ -131,11 +143,12 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .boolean-button.difficulty {
-  width: 12ch;
+  width: 160px;
 }
 
 .boolean-button.num-digits {
-  width: 6ch;
+  font-size: 24px;
+  width: 117.5px;
 }
 
 .boolean-button:hover,
@@ -146,30 +159,6 @@ input[type="submit"]:hover {
 .btn:hover,
 input[type="submit"]:hover {
   background-color: rgba(0, 255, 0, 0.3);
-}
-
-select {
-  width: calc(10%);
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  margin-bottom: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-  color: #0f0;
-  font-size: 18px;
-  opacity: 0.8;
-  text-shadow: 0 0 5px #0f0;
-  transition: background-color 0.3s ease;
-}
-
-select:hover,
-input[type="select"]:hover {
-  background-color: rgba(0, 255, 0, 0.3);
-}
-
-select:focus option {
-  background-color: rgba(50, 50, 50, 0.75);
 }
 
 .text-glow {
