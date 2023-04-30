@@ -42,7 +42,7 @@ h2, h3, h4, h5, h6 {
 
 .form-group {
   margin-left: 2vw;
-  margin-bottom: 5vw;
+  margin-bottom: 3vw;
   display: flex;
   flex-direction: row;
 }
@@ -52,19 +52,19 @@ h2, h3, h4, h5, h6 {
 }
 
 .digit-field {
-  margin-left: 20%;
+  margin-left: 15%;
 }
 
 .digit-field input[type="number"]{
   background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 0px 1vw rgba(255, 255, 255, 0.5);
   border: solid whitesmoke;
   border-radius: 1vw;
   color: #0f0;
   font-size: 6vw;
   text-align: center;
   padding: 10px;
-  margin-right: 2vw;
+  margin-right: 1.5vw;
   margin-bottom: 4vw;
   width: 8vw;
   height: 15vw;
@@ -78,16 +78,16 @@ input[type=number]::-webkit-inner-spin-button {
 .form-group input[type="submit"],
 .form-group button {
   background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 2.5vw;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  border: 0.1vw solid rgba(255, 255, 255, 0.5);
+  border-radius: 2vw;
+  box-shadow: 0.2vw 0.2vw 1vw rgba(255, 255, 255, 0.5);
   color: #0f0;
   font-weight: bold;
   padding: 10px;
   opacity: 0.8;
   margin-right: 3vw;
   text-shadow: 0 0 0.5vw #0f0;
-  transition: background-color 0.6s ease;
+  transition: background-color 0.4s ease;
   text-align: center;
 }
 
@@ -97,7 +97,7 @@ input[type=number]::-webkit-inner-spin-button {
   cursor: pointer;
   margin-right: 3vw;
   height: 15vw;
-  width: 40vw;
+  width: 44.5vw;
   opacity: 0.8;
   padding: 0;
 }
@@ -114,7 +114,6 @@ input[type=number]::-webkit-inner-spin-button {
   height: 15vw;
   width: 45vw;
   margin-right: 3vw;
-  margin-bottom: -2vw;
 }
 
 .boolean-button {
@@ -124,6 +123,13 @@ input[type=number]::-webkit-inner-spin-button {
   cursor: pointer;
   opacity: 0.8;
 }
+
+.btn.play.clicked {
+  background-color: rgba(0, 255, 0, 0.5); /* Change the background color when clicked */
+  border-color: solid rgba(255, 255, 255, 0.5);
+  color: rgba(209, 255, 208); /* Change the text color when clicked */
+}
+
 
 .boolean-button.clicked {
   background-color: rgba(0, 255, 0, 0.5); /* Change the background color when clicked */
