@@ -109,4 +109,4 @@ app.register_blueprint(digits_bp)
 if __name__ == "__main__":
     # http_server = WSGIServer(('', 5000), app)
     # http_server.serve_forever()
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
