@@ -25,7 +25,7 @@
         {{ form.csrf_token }}
         <div class="digit-field">
             {% for i in range(form.num_digits) %}
-                {{ form['digit_' + (i+1)|string] }}
+                {{ form['digit_' + (i+1)|string]}}
             {% endfor %}
         </div>
         <div class="form-group">
@@ -47,5 +47,30 @@
         <p class="text-glow" style="font-size: 4vw;">Sorry, that's not correct.</p>
       {% endif %}
     {% endif %}
+    <script>
+      const numericInputs = document.querySelectorAll('.digit-field input');
+      console.log(numericInputs)
+      numericInputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+          if (input.value.length === 1 && index < numericInputs.length - 1) {
+            console.log("length of an input is 1!")
+            numericInputs[index + 1].focus();
+          }
+        });
+
+        input.addEventListener('keydown', (event) => {
+          if (event.key === "Backspace" || event.key === "Delete") {
+            if (input.value === "") {
+              if (index > 0) {
+                numericInputs[index - 1].value = "";
+                numericInputs[index - 1].focus();
+              }
+            } else {
+              input.value = "";
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
