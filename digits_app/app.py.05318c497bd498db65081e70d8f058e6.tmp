@@ -109,7 +109,6 @@ def guess():
                 set(_clues).difference(set(guess_clues[clue_type]))
             )
             highlighted_clues.extend(unsatisfied_clues)
-        print(f"Highlighted clues: {highlighted_clues}")
     if "submit_play_again" in request.form:
         return redirect(url_for("digits_bp.digits"))
 

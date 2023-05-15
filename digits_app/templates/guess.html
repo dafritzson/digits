@@ -15,7 +15,11 @@
             <li style="margin-top: 2vw;">{{ clue_type }}</li>
             <ul>
                 {% for clue in clue_list %}
-                    <li style="margin-left: -2vw;">{{ clue }}</li>
+                    {% if clue in highlighted_clues %}
+                      <li style="margin-left: -2vw;" class="highlighted-glow"><strong>{{ clue }}</strong></li>
+                    {% else %}
+                      <li style="margin-left: -2vw;">{{ clue }}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endfor %}
@@ -25,11 +29,12 @@
         {{ form.csrf_token }}
         <div class="digit-field">
             {% for i in range(form.num_digits) %}
-                {{ form['digit_' + (i+1)|string](pattern="[0-9]*", inputmode="numeric", maxlength="1") }}
+                {{ form['digit_' + (i+1)|string](pattern="[0-9]", inputmode="numeric", maxlength="1") }}
             {% endfor %}
         </div>
         <div class="form-group">
             {{ form.submit_guess(class="btn guess") }}
+            {{ form.submit_hint(class="btn guess") }}
         </div>
     </form>
     <form method="POST">
@@ -56,7 +61,6 @@
             numericInputs[index + 1].focus();
           }
           else if (input.value.length > 1) {
-            console.log("else if")
             if (input.value.slice(-1) === currentValue) {
               input.value = input.value.slice(0, 1)
             }

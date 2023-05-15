@@ -64,7 +64,8 @@ class Solver:
             )
         return matches
 
-    def _format_clue_type(self, clue_type: str) -> str:
+    @staticmethod
+    def format_clue_type(clue_type: str) -> str:
         rename_map = {"multiples": "divided"}
         renamed_type = rename_map.get(clue_type)
         new_key = renamed_type or clue_type
@@ -84,7 +85,7 @@ class Solver:
                 if clue_type_config:
                     limit_msg = self._format_limit_msg(clue_type_config)
                 formatted_clue = negative_clue.format(
-                    key=self._format_clue_type(clue_type), limit_msg=limit_msg
+                    key=self.format_clue_type(clue_type), limit_msg=limit_msg
                 )
                 self.final_clues[clue_type].append(formatted_clue)
 
@@ -110,7 +111,7 @@ class Solver:
     def update_final_clue_keys(self) -> None:
         new_final_clues = {}
         for clue_type, clues in self.final_clues.items():
-            new_final_clues[self._format_clue_type(clue_type)] = clues
+            new_final_clues[self.format_clue_type(clue_type)] = clues
         self.final_clues = new_final_clues
 
     @staticmethod

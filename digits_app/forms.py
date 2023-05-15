@@ -74,11 +74,14 @@ class GuessButtons(FlaskForm):
 def GuessForm(*args, **kwargs):
     class StaticForm(FlaskForm):
         submit_guess = SubmitField("Guess")
+        submit_hint = SubmitField("Hint")
         num_digits = args[0]
 
     for i in range(args[0]):
+        min_val = 1 if i == 0 else 0
         field = IntegerField(
-            f"Digit {i+1}", validators=[InputRequired(), NumberRange(min=0, max=9)]
+            f"Digit {i+1}",
+            validators=[InputRequired(), NumberRange(min=min_val, max=9)],
         )
         setattr(StaticForm, f"digit_{i+1}", field)
 

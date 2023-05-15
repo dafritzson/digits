@@ -161,3 +161,8 @@ input[type="submit"]:hover {
 .text-glow {
   text-shadow: 0 0 3px rgb(97, 96, 96), 0 0 3px rgb(104, 103, 103), 0 0 3px rgb(90, 88, 88), 0 0 6px rgba(2, 255, 116, 0.527);
 }
+
+.highlighted-glow {
+  color:rgb(83, 231, 194);
+  text-shadow: 0 0 10px rgb(97, 96, 96), 0 0 10px rgb(104, 103, 103), 0 0 10px rgb(90, 88, 88), 0 0 20px rgba(2, 255, 116, 0.527);
+}
