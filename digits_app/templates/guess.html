@@ -44,10 +44,10 @@
             {{ buttons.submit_reveal(class="btn guess") }}
         </div>
     </form>
-    {% if guess %}
+    {% if guess and guess_submitted%}
       <p class="text-glow" style="font-size: 4vw;">You guessed <strong>{{ guess }}</strong>.</p>
       {% if guess == number %}
-        <p class="text-glow" style="font-size: 5vw;"><strong>Congratulations! You got it!<strong></p>
+        <p class="text-glow" style="font-size: 5vw;"><strong>{{ congratulations_messages|random }}<strong></p>
       {% else %}
         <p class="text-glow" style="font-size: 4vw;">Sorry, that's not correct.</p>
       {% endif %}

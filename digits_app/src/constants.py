@@ -15,15 +15,15 @@ INDEX_STRING_MAP.update({i: str(i + 1) + "th" for i in range(3, 11)})
 """Map of 0-indexed keys to 1-indexed placement string"""
 
 POS_RESPONSES = [
-    "Wowowowow! Good job!",
-    "Congratulations! You guessed correctly!",
+    "Wowowowow! That was it, good job!",
+    "Congratulations! You guessed it!",
     "Nice work! I love you!",
     "Well done, nerd.",
-    "Impressive!",
+    "Impressive! You got it!",
     "Nice job! I'll get you next time.",
     "Wow! You're my hero!",
-    "Showoff.",
-    "Booyah!!",
+    "Showoff. Well done, congrats, etc.",
+    "Booyah!! You make me so proud.",
 ]
 """Positive responses for guessing the number correctly"""
 

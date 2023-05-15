@@ -10,6 +10,7 @@ from wtforms import IntegerField
 
 from digits_app.forms import DigitsForm, GuessButtons, GuessForm
 from digits_app.src.clues.clue_generator import ClueGenerator
+from digits_app.src.constants import POS_RESPONSES
 from digits_app.src.main import Digits
 from digits_app.src.solver import Solver
 
@@ -82,6 +83,7 @@ def guess():
     guess_form = GuessForm(num_digits, request.form)
     guess_buttons = GuessButtons()
     highlighted_clues = []
+    guess_submitted = False
 
     guess = None
     number = answer
@@ -109,18 +111,20 @@ def guess():
                 set(_clues).difference(set(guess_clues[clue_type]))
             )
             highlighted_clues.extend(unsatisfied_clues)
-        print(f"Highlighted clues: {highlighted_clues}")
     if "submit_play_again" in request.form:
         return redirect(url_for("digits_bp.digits"))
-
+    if "submit_guess" in request.form:
+        guess_submitted = True
     return render_template(
         "guess.html",
         form=guess_form,
         clues=clues,
         highlighted_clues=highlighted_clues,
         guess=guess,
+        guess_submitted=guess_submitted,
         number=number,
         buttons=guess_buttons,
+        congratulations_messages=POS_RESPONSES,
     )
 
 
